@@ -1,4 +1,5 @@
 % vim: ft=prolog fdm=marker
+% prolog-dialect: SWI-Prolog
 
 % Figure 3: The type language for complete types. This is a regular language.
 % ------------------------------------------------------------------------------ {{{
