@@ -10,18 +10,27 @@
 % ν ::= IV  | DV
 % }}}
 
+% p_o( ?PerlType, ?OverlayType ).
+%
 % Table 1: Terminal Types and their Meaning
 % ------------------------------------------------------------------------------ {{{
 %
 % Perl Type | Overlay Type | Meaning
 % ----------+--------------+--------------------------------
 %      AV   | M AV         | Array
+p_o( p_AV   , m(av)        ).
 %      HV   | M HV         | Hash (associative array)
+p_o( p_HV   , m(hv)        ).
 %      CV   | M CV         | Code (subroutine, usually)
+p_o( p_CV   , m(cv)        ).
 %      IO   | M IO         | File Handle
+p_o( p_IO   , m(io)        ).
 %      PV   | M K PV       | String
+p_o( p_PV   , m(k(pv))     ).
 %      IV   | M K N IV     | Integer
+p_o( p_IV   , m(k(n(iv)))  ).
 %      NV   | M K N DV     | Double Floating Point
+p_o( p_NV   , m(k(n(dv)))  ).
 % }}}
 
 
