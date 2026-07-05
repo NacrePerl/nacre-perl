@@ -3,11 +3,11 @@
 % Figure 3: The type language for complete types. This is a regular language.
 % ------------------------------------------------------------------------------ {{{
 %
-% τ ::= M μ
-% μ ::= H η | K κ | AV  | HV  | CV  | IO
-% η ::= : AV, HV, CV, IO, κ
-% κ ::= P τ | N ν | PV
-% ν ::= IV  | DV
+% τ ::= M μ                                  % tau
+% μ ::= H η | K κ | AV  | HV  | CV  | IO     % mu
+% η ::= : AV, HV, CV, IO, κ                  % eta
+% κ ::= P τ | N ν | PV                       % kappa
+% ν ::= IV  | DV                             % nu
 % }}}
 
 % p_o( ?PerlType, ?OverlayType ).
@@ -37,9 +37,9 @@ p_o( p_NV   , m(k(n(dv)))  ).
 % Figure 4: The type language after introducing type variables.
 % ------------------------------------------------------------------------------ {{{
 %
-% τ ::= M µ | α_τ
-% μ ::= H η |  K κ |  AV | HV | CV | IO
-% η ::= : AV, HV, CV, IO, κ
-% κ ::= P τ | N ν  | PV  | α_κ
-% ν ::= IV  | DV   | α_ν
+% τ ::= M µ | α_τ                            % tau
+% μ ::= H η |  K κ |  AV | HV | CV | IO      % mu
+% η ::= : AV, HV, CV, IO, κ                  % eta
+% κ ::= P τ | N ν  | PV  | α_κ               % kappa
+% ν ::= IV  | DV   | α_ν                     % nu
 % }}}
