@@ -60,6 +60,16 @@ type_of(_, const_PV(_), T) :- p_o(p_PV, T).
 % TODO need the boolean SPECIAL: sv_yes, sv_no
 % }}}
 
+% OP AELEM {{{
+%
+%   Γ ⊢ t1 : M AV   Γ ⊢ t2 : M K N IV    α fresh
+% ───────────────────────────────────────────────
+%     Γ ⊢ AELEM(t1, t2) : M K α_κ
+type_of(Gamma, binop_AELEM(T1, T2), m(k(_Alpha)) ) :-
+	type_of(Gamma, T1, T_AV), p_o(p_AV, T_AV),
+	type_of(Gamma, T2, T_IV), p_o(p_IV, T_IV).
+% }}}
+
 % OP I_ADD {{{
 %
 %  Γ ⊢ t1 : M K N IV    Γ ⊢ t2 : M K N IV
