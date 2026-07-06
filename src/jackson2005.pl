@@ -60,6 +60,17 @@ type_of(_, const_PV(_), T) :- p_o(p_PV, T).
 % TODO need the boolean SPECIAL: sv_yes, sv_no
 % }}}
 
+% OP I_ADD {{{
+%
+%  Γ ⊢ t1 : M K N IV    Γ ⊢ t2 : M K N IV
+% ────────────────────────────────────────
+%       Γ ⊢ I_ADD(t1, t2) : M K N IV
+type_of(Gamma, binop_I_ADD(T1, T2), T_IV) :-
+	p_o(p_IV, T_IV),
+	type_of(Gamma, T1, T_IV),
+	type_of(Gamma, T2, T_IV).
+% }}}
+
 % OP ADD {{{
 %
 % T_DV dominates over T_IV
