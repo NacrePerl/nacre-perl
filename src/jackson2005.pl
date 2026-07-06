@@ -1,6 +1,14 @@
 % vim: ft=prolog fdm=marker
 % prolog-dialect: SWI-Prolog
 
+% Type system from:
+%
+% Gary Jackson. "Securing Perl with Type Inference".
+%   <https://web.archive.org/web/20060601221344/http://www.umiacs.umd.edu/~bargle/project2.pdf>.
+%   2005-05-20.
+%
+% Perl implementation is in `Devel::TypeCheck`.
+
 % Figure 3: The type language for complete types. This is a regular language.
 % ------------------------------------------------------------------------------ {{{
 %
