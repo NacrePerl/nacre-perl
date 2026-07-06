@@ -59,3 +59,72 @@ type_of(_, const_NV(_), T) :- p_o(p_NV, T).
 type_of(_, const_PV(_), T) :- p_o(p_PV, T).
 % TODO need the boolean SPECIAL: sv_yes, sv_no
 % }}}
+
+% OP ADD {{{
+%
+% T_DV dominates over T_IV
+type_of(Gamma, binop_ADD(T1, T2), T_DV) :-
+	p_o(p_NV, T_DV), p_o(p_IV, T_IV),
+	(
+%   Γ ⊢ t1 : M K N DV   Γ ⊢ t2 : M K N DV
+% ────────────────────────────────────────
+%     Γ ⊢ ADD(t1 , t2 ) : M K N DV
+	  type_of(Gamma, T1, T_DV), type_of(Gamma, T2, T_DV)
+%   Γ ⊢ t1 : M K N IV   Γ ⊢ t2 : M K N DV
+% ────────────────────────────────────────
+%     Γ ⊢ ADD(t1 , t2 ) : M K N DV
+	; type_of(Gamma, T1, T_IV), type_of(Gamma, T2, T_DV)
+%   Γ ⊢ t1 : M K N DV   Γ ⊢ t2 : M K N IV
+% ────────────────────────────────────────
+%     Γ ⊢ ADD(t1 , t2 ) : M K N DV
+	; type_of(Gamma, T1, T_DV), type_of(Gamma, T2, T_IV)
+	).
+
+%   Γ ⊢ t1 : M K N IV   Γ ⊢ t2 : M K N IV
+% ────────────────────────────────────────
+%     Γ ⊢ ADD(t1 , t2 ) : M K N IV
+%
+% IV + IV -> IV
+%
+% NOTE: This does not take into account the overflow semantics
+% where IV ⇒ UV ⇒ NV.
+type_of(Gamma, binop_ADD(T1, T2), T_IV) :-
+	p_o(p_IV, T_IV),
+	type_of(Gamma, T1, T_IV), type_of(Gamma, T2, T_IV).
+% }}}
+
+
+% }}}
+
+:- begin_tests(binop_ADD). % {{{
+
+:- set_test_options([format(log),output(on_failure)]).
+
+test(const_iv_const_iv,
+	[
+		setup(
+			p_o(p_IV, T_IV)
+		),
+		set( R == [T_IV] )
+	]) :-
+	type_of([], binop_ADD(const_IV(1), const_IV(2)), R).
+
+test(var_iv_var_iv,
+	[
+		setup(
+			p_o(p_IV, T_IV)
+		),
+		set( R == [T_IV] )
+	]) :-
+	type_of([x-T_IV,y-T_IV], binop_ADD(var(x), var(y)), R).
+
+test(var_dv_var_iv,
+	[
+		setup((
+			p_o(p_NV, T_DV), p_o(p_IV, T_IV)
+		)),
+		set( R == [T_DV] )
+	]) :-
+	type_of([x-T_DV,y-T_IV], binop_ADD(var(x), var(y)), R).
+
+:- end_tests(binop_ADD). % }}}
