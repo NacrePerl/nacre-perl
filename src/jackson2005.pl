@@ -44,3 +44,18 @@ p_o( p_NV   , m(k(n(dv)))  ).
 % κ ::= P τ | N ν  | PV  | α_κ               % kappa
 % ν ::= IV  | DV   | α_ν                     % nu
 % }}}
+
+
+% type_of(+Gamma, +Expression, -Type). {{{
+
+% Look up variable. {{{
+type_of(Gamma, var(X), T) :-
+	memberchk(X-T, Gamma).
+% }}}
+
+% Constant (literals) {{{
+type_of(_, const_IV(_), T) :- p_o(p_IV, T).
+type_of(_, const_NV(_), T) :- p_o(p_NV, T).
+type_of(_, const_PV(_), T) :- p_o(p_PV, T).
+% TODO need the boolean SPECIAL: sv_yes, sv_no
+% }}}
