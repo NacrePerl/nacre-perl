@@ -10,4 +10,10 @@ ro table => (
 	isa => Str,
 );
 
+sub opcodes ($self) {
+	[ map { [ split /\t+/ ] }
+		grep { ! /^#|^\s*$/ }
+		split /\n/, $self->table ];
+}
+
 1;
