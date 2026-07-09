@@ -23,4 +23,10 @@ lazy perl5_tags => sub ($self) {
 	[ grep { /$re/ } $self->_git_wrapper->tag( '-l' ) ];
 };
 
+lazy perl5_versions => sub ($self) {
+	[ map {
+		Nacre::Perl5::Version->new( repo => $self, tag => $_ )
+	} $self->perl5_tags->@* ];
+};
+
 1;
