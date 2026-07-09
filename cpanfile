@@ -1,3 +1,4 @@
+requires 'CLI::Osprey';
 requires 'Git::Wrapper';
 requires 'List::UtilsBy';
 requires 'MooX::ShortHas';
