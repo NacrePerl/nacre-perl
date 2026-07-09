@@ -6,6 +6,8 @@ use Moo;
 use MooX::ShortHas;
 use Types::Common qw(Str);
 
+use Nacre::Perl5::Opcode::Datum;
+
 use namespace::clean;
 
 ro table => (
@@ -13,7 +15,9 @@ ro table => (
 );
 
 sub opcodes ($self) {
-	[ map { [ split /\t+/ ] }
+	[ map { Nacre::Perl5::Opcode::Datum->new(
+			_row => [ split /\t+/ ],
+		) }
 		grep { ! /^#|^\s*$/ }
 		split /\n/, $self->table ];
 }
