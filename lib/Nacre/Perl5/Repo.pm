@@ -17,4 +17,10 @@ lazy _git_wrapper => sub ($self) {
 	Git::Wrapper->new( $self->gitdir );
 };
 
+lazy perl5_tags => sub ($self) {
+	[ grep {
+		/^(?:perl-5\.|^v5\.)/
+	} $self->_git_wrapper->tag( '-l' ) ];
+};
+
 1;
