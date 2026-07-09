@@ -25,6 +25,7 @@ lazy versions_filtered => sub ($self) {
 	my %partitions = partition_by { ($_->version->normal =~ /(v\d+\.\d+)/)[0] }
 		$self->versions->@*;
 	my @versions_filtered =
+		grep { ($_->version->normal =~ /v\d+\.(\d+)/)[0] % 2 == 0 }
 		sort_by { $_->version }
 		map {
 			my $p = $_;
