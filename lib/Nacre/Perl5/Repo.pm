@@ -7,6 +7,7 @@ use MooX::ShortHas;
 use Types::Path::Tiny qw(Dir);
 
 use Git::Wrapper;
+use Nacre::Perl5::Version;
 
 ro gitdir => (
 	isa => Dir,
@@ -18,9 +19,8 @@ lazy _git_wrapper => sub ($self) {
 };
 
 lazy perl5_tags => sub ($self) {
-	[ grep {
-		/^(?:perl-5\.|^v5\.)/
-	} $self->_git_wrapper->tag( '-l' ) ];
+	my $re = Nacre::Perl5::Version::VERSION_TAG_RE();
+	[ grep { /$re/ } $self->_git_wrapper->tag( '-l' ) ];
 };
 
 1;
