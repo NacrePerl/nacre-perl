@@ -9,6 +9,8 @@ use version 0.77 ();
 
 use Nacre::Perl5::Opcode::Table;
 
+use namespace::clean;
+
 use constant VERSION_TAG_RE => qr{
 	\A
 	(?: perl- | v) # prefix

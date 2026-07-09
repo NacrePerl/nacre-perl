@@ -9,6 +9,8 @@ use Types::Path::Tiny qw(Dir);
 use Git::Wrapper;
 use Nacre::Perl5::Version;
 
+use namespace::clean;
+
 ro gitdir => (
 	isa => Dir,
 	coerce => 1,

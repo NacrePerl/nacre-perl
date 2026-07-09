@@ -6,6 +6,8 @@ use Moo;
 use MooX::ShortHas;
 use Types::Common qw(Str);
 
+use namespace::clean;
+
 ro table => (
 	isa => Str,
 );
