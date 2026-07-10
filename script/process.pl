@@ -11,7 +11,7 @@ use lib "$FindBin::Bin/../lib";
 use Nacre::App;
 
 sub main {
-	my $app = Nacre::App->new;
+	my $app = Nacre::App->new_with_options;
 	$app->run;
 }
 

@@ -45,6 +45,12 @@ lazy versions_filtered => sub ($self) {
 };
 
 sub run ($self) {
+	die <<~'EOF' unless -d $self->perl5_git_path;
+	Missing `perl5` checkout. Run:
+
+	    make clone-perl5
+	EOF
+
 	for my $v ($self->versions_filtered->@*) {
 		$v->opcode_table;
 	}
