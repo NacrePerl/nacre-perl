@@ -2,6 +2,7 @@ package Nacre::App;
 # ABSTRACT: CLI app
 
 use v5.36;
+use namespace::autoclean;
 use FindBin;
 use Moo;
 use CLI::Osprey;
