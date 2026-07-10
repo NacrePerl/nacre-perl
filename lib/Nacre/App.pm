@@ -2,18 +2,26 @@ package Nacre::App;
 # ABSTRACT: CLI app
 
 use v5.36;
+use FindBin;
 use Moo;
 use CLI::Osprey;
 use MooX::ShortHas;
 
 use Nacre::Perl5::Repo;
+use Path::Tiny qw(path);
 use List::UtilsBy qw(partition_by sort_by);
 
-use namespace::clean;
+option perl5_git_path => (
+	is      => 'ro',
+	format  => 's',
+	default => sub {
+		path($FindBin::Bin, '..', 'vendor/Perl/perl5/.git')
+	},
+);
 
 lazy repo => sub ($self) {
 	Nacre::Perl5::Repo->new(
-		gitdir => 'vendor/Perl/perl5/.git'
+		gitdir => $self->perl5_git_path,
 	);
 };
 
