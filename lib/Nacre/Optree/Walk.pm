@@ -16,6 +16,9 @@ use Language::Prolog::Sugar functors => [qw(op)];
 use Language::Prolog::Sugar functors => { pair => '-' };
 use Language::Prolog::Types qw(prolog_atom prolog_list prolog_string);
 
+use Language::Prolog::Yaswi ':query';
+use Language::Prolog::Sugar functors => [ qw(print_term left_margin right_margin) ];
+
 =head2 op_to_term
 
 Turn one L<B::OP> (and, recursively, its kids) into
@@ -39,10 +42,7 @@ sub op_to_term ($op) {
 	if($op->name eq 'const') {
 		my $sv = $op->sv;
 		if($sv->FLAGS & SVf_POK) {
-			# NOTE Language::Prolog::Types::overload doesn't
-			# quote Prolog atoms properly on this end, but should
-			# be fine over the C interface.
-			push @extra, pair(svval => prolog_atom("'@{[ $sv->PV ]}'"));
+			push @extra, pair(svval => prolog_atom($sv->PV));
 		}
 	}
 
@@ -84,10 +84,10 @@ prints the terms for C<file.pl>.
 =cut
 CHECK {
 	my $term = walk_root();
-	do {#DEBUG
-		use Language::Prolog::Types::overload;
-		say "${term}." if defined $term;
-	} if 1;#DEBUG
+	if( defined $term ) {
+		swi_set_query( print_term($term, [left_margin(0), right_margin(72)]) );
+		while(swi_next) { swi_query }
+	}
 }
 
 1;
