@@ -1,5 +1,7 @@
 # make-dialect: GNU Make
 
+include maint/common.mk
+
 VENDOR_PERL5_GIT_DIR := vendor/Perl/perl5
 export VENDOR_PERL5_GIT_DIR
 
