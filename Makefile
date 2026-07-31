@@ -27,3 +27,19 @@ SWIPL_PACK_LIST := \
 .PHONY: swi-prolog-pack-install
 swi-prolog-pack-install:
 	swipl pack install $(SWIPL_PACK_LIST)
+
+
+.PHONY: test
+test: \
+	test-logtalk-swipl \
+	#
+
+define test_logtalk_SWI_PROLOG
+use_module(library(logtalk)),
+	logtalk_load('test/tester'),
+	halt
+endef
+export test_logtalk_SWI_PROLOG
+.PHONY: test-logtalk-swipl
+test-logtalk-swipl:
+	swipl -g "$$test_logtalk_SWI_PROLOG"
