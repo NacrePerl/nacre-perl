@@ -1,5 +1,5 @@
 :- initialization(
 	logtalk_load([
-		'perl/loader'
+		'opcode/opcode_table'
 	], [source_data(on)])
 ).
