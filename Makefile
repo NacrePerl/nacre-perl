@@ -39,10 +39,15 @@ test: \
 
 define test_logtalk_SWI_PROLOG
 use_module(library(logtalk)),
+	logtalk_load(lgtunit(tap_report)),
 	logtalk_load('test/tester'),
 	halt
 endef
 export test_logtalk_SWI_PROLOG
+
+TEST_LOGTALK_TAP_REPORT := test/tap_report.txt
 .PHONY: test-logtalk-swipl
 test-logtalk-swipl: generate
+	rm -f $(TEST_LOGTALK_TAP_REPORT)
 	swipl -g "$$test_logtalk_SWI_PROLOG"
+	prove --verbose --exec cat $(TEST_LOGTALK_TAP_REPORT)
