@@ -26,6 +26,8 @@ ro _row => (
 	}
 );
 
+ro number =>;
+
 lazy flags_list => sub ($self) {
 	# split characters
 	[ split '', $self->flags // '' ];

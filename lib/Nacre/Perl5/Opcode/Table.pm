@@ -15,8 +15,10 @@ ro table => (
 );
 
 sub opcodes ($self) {
+	my $i = 0;
 	[ map { Nacre::Perl5::Opcode::Datum->new(
-			_row => [ split /\t+/ ],
+			_row   => [ split /\t+/ ],
+			number => $i++,
 		) }
 		grep { ! /^#|^\s*$/ }
 		split /\n/, $self->table ];
