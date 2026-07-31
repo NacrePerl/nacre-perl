@@ -31,7 +31,7 @@ lazy versions => sub ($self) {
 };
 
 lazy versions_filtered => sub ($self) {
-	my %partitions = partition_by { ($_->version->normal =~ /(v\d+\.\d+)/)[0] }
+	my %partitions = partition_by { $_->version_two_digit }
 		$self->versions->@*;
 	my @versions_filtered =
 		grep { ($_->version->normal =~ /v\d+\.(\d+)/)[0] % 2 == 0 }
