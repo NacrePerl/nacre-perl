@@ -7,6 +7,7 @@ include maint/clone.mk
 setup: \
 	clone-perl5 \
 	clone-corpus-base \
+	swi-prolog-pack-install \
 	#
 
 VENDOR_PERL5_GIT_DIR := vendor/Perl/perl5
@@ -19,3 +20,10 @@ clone-perl5:
 clone-corpus-base:
 	$(call symlink_up_down,NacrePerl/corpus-base) \
 		|| $(call check_and_clone,https://github.com/NacrePerl/corpus-base.git,vendor/NacrePerl/corpus-base)
+
+SWIPL_PACK_LIST := \
+		logtalk \
+		#
+.PHONY: swi-prolog-pack-install
+swi-prolog-pack-install:
+	swipl pack install $(SWIPL_PACK_LIST)

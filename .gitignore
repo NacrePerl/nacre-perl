@@ -1,2 +1,6 @@
 /vendor/Perl/perl5
 /vendor/NacrePerl/corpus-base
+
+# Logtalk
+.lgt_tmp/
+settings.lgt
