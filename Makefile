@@ -28,6 +28,9 @@ SWIPL_PACK_LIST := \
 swi-prolog-pack-install:
 	swipl pack install $(SWIPL_PACK_LIST)
 
+.PHONY: generate
+generate:
+	./script/process.pl
 
 .PHONY: test
 test: \
@@ -41,5 +44,5 @@ use_module(library(logtalk)),
 endef
 export test_logtalk_SWI_PROLOG
 .PHONY: test-logtalk-swipl
-test-logtalk-swipl:
+test-logtalk-swipl: generate
 	swipl -g "$$test_logtalk_SWI_PROLOG"
