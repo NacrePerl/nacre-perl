@@ -6,6 +6,7 @@ requires 'namespace::autoclean';
 requires 'namespace::clean';
 requires 'Path::Tiny';
 requires 'Sub::HandlesVia';
+requires 'Template';
 requires 'Types::Path::Tiny';
 requires 'Type::Tiny', '2.000';
 

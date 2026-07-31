@@ -1,2 +1,14 @@
+# Generated
+/GENERATED
+/src/perl/version/loader.lgt
+/src/perl/version/perl_v*.lgt
+
+/test/tap_report.txt
+
+# Vendor
 /vendor/Perl/perl5
 /vendor/NacrePerl/corpus-base
+
+# Logtalk
+.lgt_tmp/
+settings.lgt

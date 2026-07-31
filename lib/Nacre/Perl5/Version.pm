@@ -32,6 +32,10 @@ lazy version => sub ($self) {
 	return version->parse($1);
 };
 
+lazy version_two_digit => sub ($self) {
+	($self->version->normal =~ /^(v\d+\.\d+)/)[0];
+};
+
 lazy opcode_table => sub ($self) {
 	my $content;
 	my $wrapper = $self->repo->_git_wrapper;

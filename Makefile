@@ -7,6 +7,7 @@ include maint/clone.mk
 setup: \
 	clone-perl5 \
 	clone-corpus-base \
+	swi-prolog-pack-install \
 	#
 
 VENDOR_PERL5_GIT_DIR := vendor/Perl/perl5
@@ -19,3 +20,34 @@ clone-perl5:
 clone-corpus-base:
 	$(call symlink_up_down,NacrePerl/corpus-base) \
 		|| $(call check_and_clone,https://github.com/NacrePerl/corpus-base.git,vendor/NacrePerl/corpus-base)
+
+SWIPL_PACK_LIST := \
+		logtalk \
+		#
+.PHONY: swi-prolog-pack-install
+swi-prolog-pack-install:
+	swipl pack install $(SWIPL_PACK_LIST)
+
+.PHONY: generate
+generate:
+	./script/process.pl
+
+.PHONY: test
+test: \
+	test-logtalk-swipl \
+	#
+
+define test_logtalk_SWI_PROLOG
+use_module(library(logtalk)),
+	logtalk_load(lgtunit(tap_report)),
+	logtalk_load('test/tester'),
+	halt
+endef
+export test_logtalk_SWI_PROLOG
+
+TEST_LOGTALK_TAP_REPORT := test/tap_report.txt
+.PHONY: test-logtalk-swipl
+test-logtalk-swipl: generate
+	rm -f $(TEST_LOGTALK_TAP_REPORT)
+	swipl -g "$$test_logtalk_SWI_PROLOG"
+	prove --verbose --exec cat $(TEST_LOGTALK_TAP_REPORT)
