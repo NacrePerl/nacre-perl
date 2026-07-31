@@ -1,0 +1,3 @@
+GENERATED/**                  linguist-generated
+src/perl/version/loader.lgt   linguist-generated
+src/perl/version/perl_v*.lgt  linguist-generated
