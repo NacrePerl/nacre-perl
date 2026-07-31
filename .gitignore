@@ -1,3 +1,9 @@
+# Generated
+/GENERATED
+/src/perl/version/loader.lgt
+/src/perl/version/perl_v*.lgt
+
+# Vendor
 /vendor/Perl/perl5
 /vendor/NacrePerl/corpus-base
 
