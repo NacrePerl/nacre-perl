@@ -23,8 +23,8 @@
 	]).
 	added_since(Older, Name) :-
 		::older(Older),
-		::opcode(Name, _, _, _, _, _),
 		imports_category(Older, opcode_table),
+		::opcode(Name, _, _, _, _, _),
 		\+ Older::has_opcode(Name).
 
 :- end_category.
