@@ -1,3 +1,7 @@
+# Release
+/Nacre-*/
+/Nacre-*.tar.gz
+
 # Generated
 /GENERATED
 /src/perl/version/loader.lgt

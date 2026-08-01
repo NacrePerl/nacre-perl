@@ -51,3 +51,7 @@ test-logtalk-swipl: generate
 	rm -f $(TEST_LOGTALK_TAP_REPORT)
 	swipl -g "$$test_logtalk_SWI_PROLOG"
 	prove --verbose --exec cat $(TEST_LOGTALK_TAP_REPORT)
+
+.PHONY: clean
+clean:
+	git clean -xffd  GENERATED 'src/perl/version/perl_v*.lgt'

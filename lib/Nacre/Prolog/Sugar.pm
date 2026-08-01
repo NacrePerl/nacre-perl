@@ -8,7 +8,8 @@ use Language::Prolog::Types qw(prolog_list);
 use Language::Prolog::Types::overload;
 
 {
-	package Nacre::Prolog::Sugar::Atom;
+	package # hide from PAUSE
+		Nacre::Prolog::Sugar::Atom;
 	use overload '""' => sub {
 		my $v = ${ shift() };
 		if( $v !~ /
