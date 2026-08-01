@@ -1,6 +1,7 @@
 requires 'CLI::Osprey';
 requires 'Git::Wrapper';
 requires 'List::UtilsBy';
+requires 'Moo';
 requires 'MooX::ShortHas';
 requires 'namespace::autoclean';
 requires 'namespace::clean';
