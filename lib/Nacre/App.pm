@@ -29,6 +29,12 @@ option perl5_git_path => (
 );
 
 lazy repo => sub ($self) {
+	die <<~'EOF' unless -d $self->perl5_git_path;
+	Missing `perl5` checkout. Run:
+
+	    make clone-perl5
+	EOF
+
 	Nacre::Perl5::Repo->new(
 		gitdir => $self->perl5_git_path,
 	);
@@ -54,12 +60,6 @@ lazy versions_filtered => sub ($self) {
 };
 
 sub run ($self) {
-	die <<~'EOF' unless -d $self->perl5_git_path;
-	Missing `perl5` checkout. Run:
-
-	    make clone-perl5
-	EOF
-
 	my $tt2 = Template->new({
 		INCLUDE_PATH => $self->project_root,
 	});
