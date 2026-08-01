@@ -18,6 +18,7 @@
 	:- public(added_since/2).
 	added_since(Older, Name) :-
 		::opcode(Name, _, _, _, _, _),
+		imports_category(Older, opcode_table),
 		\+ Older::has_opcode(Name).
 
 :- end_category.
