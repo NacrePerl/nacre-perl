@@ -30,7 +30,7 @@ swi-prolog-pack-install:
 
 .PHONY: generate
 generate:
-	./script/process.pl
+	./script/process.pl generate
 
 .PHONY: test
 test: \
