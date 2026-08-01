@@ -15,13 +15,16 @@ use List::UtilsBy qw(partition_by sort_by);
 use Nacre::Perl5::Opcode::ToProlog;
 use Template;
 
-my $PROJECT_ROOT = path($FindBin::Bin, '..');
+
+lazy project_root => sub {
+	path($FindBin::Bin, '..');
+};
 
 option perl5_git_path => (
 	is      => 'ro',
 	format  => 's',
-	default => sub {
-		$PROJECT_ROOT->child('vendor/Perl/perl5/.git')
+	default => sub ($self) {
+		$self->project_root->child('vendor/Perl/perl5/.git')
 	},
 );
 
@@ -58,14 +61,14 @@ sub run ($self) {
 	EOF
 
 	my $tt2 = Template->new({
-		INCLUDE_PATH => $PROJECT_ROOT,
+		INCLUDE_PATH => $self->project_root,
 	});
 
-	my $gen_perl_logtalk_dir = $PROJECT_ROOT->child(qw(src perl version));
+	my $gen_perl_logtalk_dir = $self->project_root->child(qw(src perl version));
 	my $gen_perl_tt2_file = $gen_perl_logtalk_dir->child('perl_v.lgt.tt2');
 	-f $gen_perl_tt2_file or die "Missing template $gen_perl_tt2_file";
 
-	my $gen_opcode_dir = $PROJECT_ROOT->child(qw(GENERATED src perl opcode));
+	my $gen_opcode_dir = $self->project_root->child(qw(GENERATED src perl opcode));
 
 	my @perl_logtalk_files;
 	for my $v ($self->versions_filtered->@*) {
@@ -80,7 +83,7 @@ sub run ($self) {
 
 		my $gen_perl_logtalk_file = $gen_perl_logtalk_dir->child("$file_basename.lgt");
 		push @perl_logtalk_files, $gen_perl_logtalk_file;
-		$tt2->process("@{[ $gen_perl_tt2_file->relative($PROJECT_ROOT) ]}", {
+		$tt2->process("@{[ $gen_perl_tt2_file->relative($self->project_root) ]}", {
 			perl_version => $v->version_two_digit
 		}, "$gen_perl_logtalk_file") or die $tt2->error;
 	}
