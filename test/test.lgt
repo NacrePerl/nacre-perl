@@ -1,7 +1,6 @@
 :- object(test,
 	extends(lgtunit)).
 
-	cover(perl_v5_38).
 	cover(opcode_table).
 	cover(versioned).
 
