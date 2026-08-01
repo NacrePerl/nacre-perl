@@ -2,6 +2,7 @@ package Nacre::Perl5::Opcode::ToProlog;
 # ABSTRACT: Converts an opcode table to Prolog
 
 use v5.36;
+use namespace::autoclean;
 use Moo;
 use MooX::ShortHas;
 use Types::Common qw(InstanceOf);
